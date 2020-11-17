@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>Suicide</title>
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.17.15/lodash.min.js"></script>
+	<script src = "https://d3js.org/d3.v4.min.js"></script>
+</head>
+<body>
+
+<div class="navbar navbar-dark bg-warning sticky-top">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <a class="navbar-brand">Suicide Rate Worldwide</a> (Year 1985 - 2016)
+                <!-- <a id='year-selector'>Drop down to be added</a> -->
+                <select id="mySelect" onchange="main()">
+                  	<option>All year</option>
+				  	<option>1987</option>
+					<option>1988</option>
+					<option>1989</option>
+					<option>1990</option>
+					<option>1991</option>
+					<option>1992</option>
+					<option>1993</option>
+					<option>1994</option>
+					<option>1995</option>
+					<option>1996</option>
+					<option>1997</option>
+					<option>1998</option>
+					<option>1999</option>
+					<option>2000</option>
+					<option>2001</option>
+					<option>2002</option>
+					<option>2003</option>
+					<option>2004</option>
+					<option>2005</option>
+					<option>2006</option>
+					<option>2007</option>
+					<option>2008</option>
+					<option>2009</option>
+					<option>2010</option>
+					<option>2011</option>
+					<option>2012</option>
+					<option>2013</option>
+					<option>2014</option>
+					<option>2015</option>
+				</select>
+                <!-- <a class="reset" href="javascript:dc.filterAll();dc.renderAll();">Reset</a> -->
+            </div>
+        </div>
+    </div>
+
+
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-sm-4">
+      <div id="pie-chart"></div>
+    </div>
+    <div class="col-sm-4">
+      <h3>Column 2</h3>
+      <p>Lorem ipsum dolor..</p>
+    </div>
+    <div class="col-sm-4">
+      <h3>Column 3</h3>
+      <p>Lorem ipsum dolor..</p>
+    </div>
+  </div>
+  <div class="row">
+  	<div class="col-sm-12">
+  		<h3>World map</h3>
+  	</div>
+  </div>
+</div>
+
+
+</body>
+<script src="script.js"></script> 
+</html>
