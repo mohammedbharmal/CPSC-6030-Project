@@ -17,6 +17,21 @@
 	      text-anchor: start;
 	      font-weight: bold;
 	  }
+	  .svg-container {
+		    display: inline-block;
+		    position: relative;
+		    width: 100%;
+		    padding-bottom: 100%;
+		    vertical-align: top;
+		    overflow: hidden;
+		}
+		.svg-content {
+		    display: inline-block;
+		    position: absolute;
+		    top: 0;
+		    left: 0;
+		}
+
 	</style>
 	<title>Suicide</title>
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
@@ -76,13 +91,13 @@
 <div class="container-fluid">
   <div class="row">
     <div class="col-sm-3">
-      <div id="pie-chart"></div>
+      <div id="pie-chart" class="svg-container"></div>
     </div>
     <div class="col-sm-5">
-      <div id="horizontal-bar"></div>
+      <div id="horizontal-bar" class="svg-container"></div>
     </div>
     <div class="col-sm-4">
-      <div id="stacked-bar"></div>
+      <div id="stacked-bar" class="svg-container"></div>
     </div>
   </div>
   <div class="row">
