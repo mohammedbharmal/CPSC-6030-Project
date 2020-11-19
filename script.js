@@ -234,7 +234,8 @@ function draw_bar_chart(country, year) {
 	//y.domain([0, d3.max(data, function(d) { return d.sales; })]);
 	// append the rectangles for the bar chart
 	var x2 = svg.selectAll(".bar").data(data3).enter().append("g")
-	x2.append("rect").attr("class", "bar")
+	x2.append("rect").attr("class", "bar").transition() // <---- Here is the transition
+    .duration(300).delay(function(d,i){return i*100})
 		//.attr("x", function(d) { return x(d.sales); })
 		.attr("width", function(d) {
 			return x(d.suicide);
@@ -407,7 +408,8 @@ function draw_stacked_bar_chart(country, year) {
 	x.domain(layers[0].map(d => d.data.age))
 	y.domain([0, d3.max(layers[layers.length - 1], d => (d[0] + d[1]))]).nice()
 	const layer = svg.selectAll('layer').data(layers).enter().append('g').attr('class', 'layer').style('fill', (d, i) => (z(i)))
-	layer.selectAll('rect').data(d => d).enter().append('rect').attr('x', d => x(d.data.age)).attr('y', d => y(d[0] + d[1])).attr('height', d => y(d[0]) - y(d[1] + d[0])).attr('width', x.bandwidth() - 1)
+	layer.selectAll('rect').data(d => d).enter().append('rect').transition() // <---- Here is the transition
+    .duration(300).delay(function(d,i){return i*100}).attr('x', d => x(d.data.age)).attr('y', d => y(d[0] + d[1])).attr('height', d => y(d[0]) - y(d[1] + d[0])).attr('width', x.bandwidth() - 1)
 	svg.append('g').attr('class', 'axis axis--x').attr('transform', `translate(0,${height})`).call(xAxis)
 	svg.append('g').attr('class', 'axis axis--y').attr('transform', `translate(${width},0)`).call(yAxis)
 }
@@ -477,12 +479,15 @@ function draw_world_map(year) {
 					// Pull data for this country
 					d.suicide_100k = data_world[d.id] || 0;
 					if(d.suicide_100k == 0) {
-						return "orange"
+						return "black"
 					} else {
 						main(f.properties.name)
 						return "orange"
 					}
 				})
+				// .append("div")
+			    // .style("position", "absolute")
+			    // .text("I'm a circle!")
 			}).on("mouseout", function(d) {
 				d3.select(this).attr("fill", function(d) {
 					// Pull data for this country
