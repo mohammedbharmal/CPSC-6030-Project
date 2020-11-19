@@ -24,6 +24,7 @@
 		    padding-bottom: 100%;
 		    vertical-align: top;
 		    overflow: hidden;
+		    margin-bottom: -40%;
 		}
 		.svg-content {
 		    display: inline-block;
@@ -42,6 +43,7 @@
 	<script src="https://d3js.org/d3-scale-chromatic.v1.min.js"></script>
 	<script src="https://d3js.org/d3-geo-projection.v2.min.js"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/d3-legend/2.24.0/d3-legend.js"></script>
+	<script src="https://unpkg.com/topojson@3"></script>
 </head>
 <body>
 
@@ -50,7 +52,7 @@
             <div class="navbar-header">
                 <a class="navbar-brand">Suicide Rate Worldwide</a> (Year 1985 - 2016)
                 <!-- <a id='year-selector'>Drop down to be added</a> -->
-                <select id="mySelect" onchange="main()">
+                <select id="mySelect" onchange="main2()">
                   	<option>All year</option>
 				  	<option>1987</option>
 					<option>1988</option>
