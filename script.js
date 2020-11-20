@@ -96,7 +96,7 @@ function draw_pie_chart(country, year) {
 	}
 	var height = 425;
 	var width = 425;
-	var radius = 150;
+	var radius = 120;
 	var svg = d3.select("#pie-chart").append("svg").attr("preserveAspectRatio", "xMinYMin meet").attr("viewBox", "0 0 425 425").classed("svg-content", true)
 		.append("g").attr("transform", "translate(" + width / 2 + "," + height / 2 + ")");
 	var color = d3.scaleOrdinal().domain(x).range(['#67a9cf', '#fa9fb5'])
