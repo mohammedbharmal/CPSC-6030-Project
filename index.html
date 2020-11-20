@@ -32,6 +32,31 @@
 		    top: 0;
 		    left: 0;
 		}
+		.navbar-custom { 
+            background-color: #0868ac; 
+        }
+
+        .navbar-custom .navbar-brand, 
+        .navbar-custom .navbar-text { 
+            color: white; 
+        }
+
+        .for-pie {
+		  position: absolute;
+		  top: -300px;
+		  right: -600px;
+		}
+
+		.navbar-header {
+			float: left;
+			text-align: center;
+			width: 100%;
+			font-size: 20px;
+		}
+		.navbar-brand {
+			float:none;
+			font-size: 25px !important;
+		}
 
 	</style>
 	<title>Suicide</title>
@@ -45,15 +70,14 @@
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/d3-legend/2.24.0/d3-legend.js"></script>
 	<script src="https://unpkg.com/topojson@3"></script>
 </head>
-<body>
+<body style="background-color:rgb(242, 242, 242)">
 
-<div class="navbar navbar-dark bg-warning sticky-top">
+<div class="navbar navbar-custom sticky-top">
         <div class="container-fluid">
             <div class="navbar-header">
-                <a class="navbar-brand">Suicide Rate Worldwide</a> (Year 1985 - 2016)
-                <!-- <a id='year-selector'>Drop down to be added</a> -->
+                <a class="navbar-brand">Suicide Rate Worldwide (Year 1987 - 2016)</a>
                 <select id="mySelect" onchange="main2()">
-                  	<option>All year</option>
+                  	<option>All years</option>
 				  	<option>1987</option>
 					<option>1988</option>
 					<option>1989</option>
@@ -84,29 +108,33 @@
 					<option>2014</option>
 					<option>2015</option>
 				</select>
-                <!-- <a class="reset" href="javascript:dc.filterAll();dc.renderAll();">Reset</a> -->
             </div>
         </div>
     </div>
 
 
 <div class="container-fluid">
-  <div class="row">
-    <div class="col-sm-3">
-      <div id="pie-chart" class="svg-container"></div>
+	<div class="row">
+        <div class="col-lg-4 chart">
+            <div class="row">
+                <div class="col-lg-12 chart">
+                	<h4>Top 10 Countries with the Highest Suicide Rate</h4>
+                	<div id="horizontal-bar" class="svg-container"></div>
+                </div>
+                <div class="col-lg-12 chart">
+                	<h4>Suicide Rate by Age Group </h4>
+                	<div id="stacked-bar" class="svg-container"></div>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-8 chart">
+        	<div id="world-map"></div>
+        </div>
+        <div class="col-lg-2 chart">
+        	<h4 style="position: absolute;top: -20px;right: -620px;">Number of Suicides by Gender</h4>
+    		<div id="pie-chart" class="svg-container for-pie"></div>
+    	</div>
     </div>
-    <div class="col-sm-5">
-      <div id="horizontal-bar" class="svg-container"></div>
-    </div>
-    <div class="col-sm-4">
-      <div id="stacked-bar" class="svg-container"></div>
-    </div>
-  </div>
-  <div class="row">
-  	<div class="col-lg-12">
-  		<div id="world-map"></div>
-  	</div>
-  </div>
 </div>
 
 
