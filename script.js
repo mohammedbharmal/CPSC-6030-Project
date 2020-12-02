@@ -94,10 +94,10 @@ function draw_pie_chart(country, year) {
 		"Male": male,
 		"Female": female
 	}
-	var height = 425;
-	var width = 425;
-	var radius = 120;
-	var svg = d3.select("#pie-chart").append("svg").attr("preserveAspectRatio", "xMinYMin meet").attr("viewBox", "0 0 425 425").classed("svg-content", true)
+	var height = 450;
+	var width = 700;
+	var radius = 175;
+	var svg = d3.select("#pie-chart").append("svg").attr("preserveAspectRatio", "xMinYMin meet").attr("viewBox", "0 0 700 450").classed("svg-content", true)
 		.append("g").attr("transform", "translate(" + width / 2 + "," + height / 2 + ")");
 	var color = d3.scaleOrdinal().domain(x).range(['#67a9cf', '#fa9fb5'])
 	var pie_data = d3.pie().value(function(d) {
@@ -221,6 +221,12 @@ function draw_bar_chart(country, year) {
 			return y(d.country) + 25
 		})
 	svg.append("g").attr("transform", "translate(0," + height + ")").call(d3.axisBottom(x));
+	svg.append("text")             
+      .attr("transform",
+            "translate(" + (width/2) + " ," + 
+                           (height + margin.top + 20) + ")")
+      .style("text-anchor", "middle")
+      .text("Suicide Rate");
 }
 
 function draw_stacked_bar_chart(country, year) {
@@ -303,6 +309,10 @@ function draw_stacked_bar_chart(country, year) {
 					}
 				}
 			})
+			data.forEach(function(d) {
+				d["female"] = Math.round(d["female"] / 30)
+				d["male"] = Math.round(d["male"] / 30)
+			})
 		} else {
 			var newData = [];
 			for(var i = 0; i < suicideData.length; i++) {
@@ -346,7 +356,7 @@ function draw_stacked_bar_chart(country, year) {
 		left: 50
 	}
 	const width = 500
-	const height = 400
+	const height = 325
 	const x = d3.scaleBand().rangeRound([0, width])
 	const y = d3.scaleLinear().rangeRound([height, 0])
 	const z = d3.scaleOrdinal().range(['#fa9fb5', '#67a9cf'])
@@ -395,6 +405,19 @@ function draw_stacked_bar_chart(country, year) {
 		}).attr('x', d => x(d.data.age)).attr('y', d => y(d[0] + d[1])).attr('height', d => y(d[0]) - y(d[1] + d[0])).attr('width', x.bandwidth() - 1)
 	svg.append('g').attr('class', 'axis axis--x').attr('transform', `translate(0,${height})`).call(xAxis)
 	svg.append('g').attr('class', 'axis axis--y').attr('transform', `translate(0, 0)`).call(yAxis)
+	svg.append("text")             
+      .attr("transform",
+            "translate(" + (width/2) + " ," + 
+                           (height + margin.top + 20) + ")")
+      .style("text-anchor", "middle")
+      .text("Age groups");
+    svg.append("text")
+      .attr("transform", "rotate(-90)")
+      .attr("y", 0 - margin.left)
+      .attr("x",0 - (height / 2))
+      .attr("dy", "0.7em")
+      .style("text-anchor", "middle")
+      .text("Suicide Rate");  
 }
 
 function draw_world_map(year) {
@@ -402,41 +425,44 @@ function draw_world_map(year) {
 	data_world = {}
 	if(year == null) {
 		suicideData.forEach(function(d) {
-			if(data_world[d.country]) {
-				data_world[d.country] += d["suicides_no"]
+			if(data_world[d.code]) {
+				data_world[d.code] += d["suicides_100k"]
 			} else {
-				data_world[d.code] = d["suicides_no"]
+				data_world[d.code] = d["suicides_100k"]
 			}
 		});
+		Object.keys(data_world).forEach(function(key) {
+			data_world[key] = Math.round(data_world[key] / 30)
+		})
 	} else {
 		suicideData.forEach(function(d) {
 			if(d["year"] == year) {
-				if(data_world[d.country]) {
-					data_world[d.country] += d["suicides_no"]
+				if(data_world[d.code]) {
+					data_world[d.code] += d["suicides_100k"]
 				} else {
-					data_world[d.code] = d["suicides_no"]
+					data_world[d.code] = d["suicides_100k"]
 				}
 			}
 		});
 	}
-	var height = 400;
+	var height = 200;
 	var width = 1000;
 	var colorScale = d3.scaleThreshold()
 		.domain([1, 6, 11, 26, 101, 1001])
-		.range(["#f0f9e8", "#ccebc5", "#a8ddb5", "#7bccc4", "#43a2ca", "#0868ac", "#043456", "#000000"]);
+		.range(["#000000", "#f0f9e8", "#ccebc5", "#a8ddb5", "#7bccc4", "#43a2ca", "#0868ac", "#043456"]);
 	var path = d3.geoPath();
-	var projection = d3.geoMercator()
-		.scale(150)
-		.translate([width / 2, height + 50]);
+	var projection = d3.geoPatterson()
+		.scale(140)
+		.translate([width / 2, height + 40]);
 	var path = d3.geoPath().projection(projection);
-	var svg = d3.select("#world-map").append("svg").attr("preserveAspectRatio", "xMinYMin meet").attr("viewBox", "0 0 1000 650").classed("svg-content", true)
-	var g = svg.append("g").attr("class", "legendThreshold").attr("transform", "translate(20,20)");
+	var svg = d3.select("#world-map").append("svg").attr("preserveAspectRatio", "xMinYMin meet").attr("viewBox", "0 0 1000 400").classed("svg-content", true)
+	var g = svg.append("g").attr("class", "legendThreshold").attr("transform", "translate(0,0)");
 	g.append("text")
 		.attr("class", "caption")
 		.attr("x", 0)
 		.attr("y", -6)
 		.text("Countries");
-	var labels = ['0', '1-5', '6-10', '11-25', '26-100', '101-1000', '> 1000', "No data Available"];
+	var labels = ["No data Available", '0', '1-5', '6-10', '11-25', '26-100', '101-1000', '> 1000'];
 	var legend = d3.legendColor()
 		.labels(function(d) {
 			return labels[d.i];
@@ -453,6 +479,7 @@ function draw_world_map(year) {
 		.append('path')
 		.attr('fill', d => {
 			d.suicide_100k = data_world[d.id] || 0;
+			// console.log(d.suicide_100k)
 			if(d.suicide_100k == 0) {
 				return "black"
 			} else {
