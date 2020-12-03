@@ -124,26 +124,17 @@ function draw_bar_chart(country, year) {
 	data3 = []
 	if(year == null) {
 		suicideData.forEach(function(d) {
-			if(country == null) {
 				if(data[d.country]) {
 					data[d.country] += d["suicides_100k"]
 				} else {
 					data[d.country] = d["suicides_100k"]
 				}
-			} else {
-				if(d["country"] == country && data[country]) {
-					data[d.country] += d["suicides_100k"]
-				} else if(d["country"] == country) {
-					data[d.country] = d["suicides_100k"]
-				}
-			}
 		});
 		Object.keys(data).forEach(function(key) {
 			data[key] = Math.round(data[key] / 30)
 		})
 	} else {
 		suicideData.forEach(function(d) {
-			if(country == null) {
 				if(d["year"] == year) {
 					if(data[d.country]) {
 						data[d.country] += d["suicides_100k"]
@@ -151,15 +142,6 @@ function draw_bar_chart(country, year) {
 						data[d.country] = d["suicides_100k"]
 					}
 				}
-			} else {
-				if(d["year"] == year) {
-					if(d["country"] == country && data[country]) {
-						data[d.country] += d["suicides_100k"]
-					} else if(d["country"] == country) {
-						data[d.country] = d["suicides_100k"]
-					}
-				}
-			}
 		});
 	}
 	Object.keys(data).forEach(function(key) {
@@ -171,15 +153,27 @@ function draw_bar_chart(country, year) {
 	data3.sort(function(a, b) {
 		return b.suicide - a.suicide;
 	});
-	if(data3.length == 1) {
-		for(i = 0; i < 9; i += 1) {
-			data3.push({
-				"country": i,
-				"suicide": 0
-			})
-		}
+	var start_index = -1
+	var end_index = -1
+	var index = -1
+	if(country != null) {
+		data3.forEach(function (d,i) {
+			if (d["country"] == country) {
+				index = i
+			}
+		})
+		start_index = index - 5
+		end_index = index + 5
 	}
-	data3 = data3.slice(0, 10)
+	if (start_index < 0) {
+		start_index = 0
+		end_index = 10
+	}
+	if (end_index > data3.length) {
+		start_index = data3.length - 10
+		end_index = data3.length
+	}
+	data3 = data3.slice(start_index, end_index)
 	data3 = data3.reverse()
 	var margin = {
 			top: 20,
@@ -479,7 +473,6 @@ function draw_world_map(year) {
 		.append('path')
 		.attr('fill', d => {
 			d.suicide_100k = data_world[d.id] || 0;
-			// console.log(d.suicide_100k)
 			if(d.suicide_100k == 0) {
 				return "black"
 			} else {
