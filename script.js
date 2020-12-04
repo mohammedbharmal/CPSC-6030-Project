@@ -99,7 +99,8 @@ function draw_pie_chart(country, year) {
 	var radius = 175;
 	var svg = d3.select("#pie-chart").append("svg").attr("preserveAspectRatio", "xMinYMin meet").attr("viewBox", "0 0 700 450").classed("svg-content", true)
 		.append("g").attr("transform", "translate(" + width / 2 + "," + height / 2 + ")");
-	var color = d3.scaleOrdinal().domain(x).range(['#67a9cf', '#fa9fb5'])
+	// var color = d3.scaleOrdinal().domain(x).range(['#67a9cf', '#fa9fb5'])
+	var color = d3.scaleOrdinal().domain(x).range(['#0868ac', '#ff668b'])
 	var pie_data = d3.pie().value(function(d) {
 		return d.value;
 	})
@@ -156,22 +157,28 @@ function draw_bar_chart(country, year) {
 	var start_index = -1
 	var end_index = -1
 	var index = -1
+	var color_range = ["#0868ac", "#0868ac", "#0868ac", "#0868ac", "#0868ac", "#0868ac", "#0868ac", "#0868ac", "#0868ac", "#0868ac"]
 	if(country != null) {
 		data3.forEach(function (d,i) {
 			if (d["country"] == country) {
 				index = i
 			}
 		})
+		color_range[5] = "orange"
 		start_index = index - 5
 		end_index = index + 5
 	}
 	if (start_index < 0) {
 		start_index = 0
 		end_index = 10
+		color_range[5] = "#0868ac"
+		color_range[index] = "orange"
 	}
 	if (end_index > data3.length) {
 		start_index = data3.length - 10
 		end_index = data3.length
+		color_range[5] = "#0868ac"
+		color_range[index] = "orange"
 	}
 	data3 = data3.slice(start_index, end_index)
 	data3 = data3.reverse()
@@ -185,7 +192,8 @@ function draw_bar_chart(country, year) {
 		height = 450 - margin.top - margin.bottom;
 	var y = d3.scaleBand().range([height, 0]).padding(0.1);
 	var x = d3.scaleLinear().range([0, width]);
-	var color = d3.scaleOrdinal().range(["#084099", "#084080", "#0868af", "#0868aa", "#2b8cbf", "#2b8cba", "#4eb3d3", "#4eb3d3", "#7bccc4", "#a8ddb5"].reverse())
+	// var color = d3.scaleOrdinal().range(["#084099", "#084080", "#0868af", "#0868aa", "#2b8cbf", "#2b8cba", "#4eb3d3", "#4eb3d3", "#7bccc4", "#a8ddb5"].reverse())
+	var color = d3.scaleOrdinal().range(color_range.reverse())
 	var svg = d3.select("#horizontal-bar").append("svg").attr("preserveAspectRatio", "xMinYMin meet").attr("viewBox", "0 0 820 490").classed("svg-content", true)
 		.append("g").attr("transform", "translate(" + margin.left + "," + margin.top + ")")
 	x.domain([0, d3.max(data3, function(d) {
@@ -353,7 +361,7 @@ function draw_stacked_bar_chart(country, year) {
 	const height = 325
 	const x = d3.scaleBand().rangeRound([0, width])
 	const y = d3.scaleLinear().rangeRound([height, 0])
-	const z = d3.scaleOrdinal().range(['#fa9fb5', '#67a9cf'])
+	const z = d3.scaleOrdinal().range(['#ff668b', '#0868ac'])
 	const xAxis = d3.axisBottom().scale(x)
 	const yAxis = d3.axisLeft().scale(y)
 	const svg = d3.select('#stacked-bar').append('svg').attr("preserveAspectRatio", "xMinYMin meet").attr("viewBox", "0 0 625 500").classed("svg-content", true)
@@ -443,7 +451,7 @@ function draw_world_map(year) {
 	var width = 1000;
 	var colorScale = d3.scaleThreshold()
 		.domain([1, 6, 11, 26, 101, 1001])
-		.range(["#000000", "#f0f9e8", "#ccebc5", "#a8ddb5", "#7bccc4", "#43a2ca", "#0868ac", "#043456"]);
+		.range(["#ffffff", "#f0f9e8", "#ccebc5", "#a8ddb5", "#7bccc4", "#43a2ca", "#0868ac", "#043456"]);
 	var path = d3.geoPath();
 	var projection = d3.geoPatterson()
 		.scale(140)
@@ -474,7 +482,7 @@ function draw_world_map(year) {
 		.attr('fill', d => {
 			d.suicide_100k = data_world[d.id] || 0;
 			if(d.suicide_100k == 0) {
-				return "black"
+				return "white"
 			} else {
 				return colorScale(d.suicide_100k)
 			}
@@ -483,7 +491,7 @@ function draw_world_map(year) {
 			d3.select(this).attr("fill", function(d) {
 				d.suicide_100k = data_world[d.id] || 0;
 				if(d.suicide_100k == 0) {
-					return "black"
+					return "white"
 				} else {
 					main(f.properties.name)
 					return "orange"
@@ -493,7 +501,7 @@ function draw_world_map(year) {
 			d3.select(this).attr("fill", function(d) {
 				d.suicide_100k = data_world[d.id] || 0;
 				if(d.suicide_100k == 0) {
-					return "black"
+					return "white"
 				} else {
 					return colorScale(d.suicide_100k)
 				}
