@@ -1,9 +1,9 @@
 # Suicide Rate Worldwide
 
-Group number: g-07
-Group members: Mohammed Bharmal, Nikhil Desai
-Link to website: https://mohammedbharmal.github.io/suicide_rate_worldwide/
-Link to dataset: https://www.kaggle.com/russellyates88/suicide-rates-overview-1985-to-2016
+Group number: g-07  
+Group members: Mohammed Bharmal, Nikhil Desai  
+Link to website: https://mohammedbharmal.github.io/suicide_rate_worldwide/  
+Link to dataset: https://www.kaggle.com/russellyates88/suicide-rates-overview-1985-to-2016  
 
 Work breakdown:
 
